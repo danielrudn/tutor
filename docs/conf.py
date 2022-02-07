@@ -108,5 +108,5 @@ def youtube(
     ]
 
 
-youtube.content = True
-docutils.parsers.rst.directives.register_directive("youtube", youtube)
+setattr(youtube, "content", True)
+docutils.parsers.rst.directives.register_directive("youtube", youtube)  # type: ignore

@@ -81,6 +81,8 @@ def render(context: Context, extra_configs: List[str], src: str, dst: str) -> No
             env.render_unknown(config, tutor_config.get_yaml_file(extra_config))
         )
 
+    # TODO we can get rid of the template_roots constructor argument if we get
+    # rid of this call here
     renderer = env.Renderer(config, [src])
     renderer.render_all_to(dst)
     fmt.echo_info("Templates rendered to {}".format(dst))
