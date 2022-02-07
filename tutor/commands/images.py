@@ -136,7 +136,7 @@ def build_image(root: str, config: Config, image: str, *args: str) -> None:
         raise ImageNotFoundError(image)
 
     for path, tag, build_args in to_build:
-        images.build(path, tag, *args)
+        images.build(path, tag, *build_args)
 
 
 def pull_image(config: Config, image: str) -> None:
@@ -182,9 +182,7 @@ def iter_plugin_images(
     for plugin, hook in plugins.iter_hooks(config, hook_name):
         if not isinstance(hook, dict):
             raise exceptions.TutorError(
-                "Invalid hook '{}': expected dict, got {}".format(
-                    hook_name, hook.__class__
-                )
+                f"Invalid hook '{hook_name}': expected dict, got {hook.__class__}"
             )
         for img, tag in hook.items():
             if image in [img, "all"]:
@@ -206,7 +204,7 @@ def vendor_image_names(config: Config) -> List[str]:
 
 class ImageNotFoundError(exceptions.TutorError):
     def __init__(self, image_name: str):
-        super().__init__("Image '{}' could not be found".format(image_name))
+        super().__init__(f"Image '{image_name}' could not be found")
 
 
 images_command.add_command(build)
